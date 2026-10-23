@@ -1,6 +1,7 @@
 let hairs = [];
 let eyes = [];
 let shapes = [];
+let weather;
 
 let face;
 face = {
@@ -394,6 +395,7 @@ let rect1, rect2;
 let bar1, bar2, bar3, bar4;
 let frame;
 function createArtwork(){
+    weather = new weatherManager(); 
     hair1 = new Hair(390,205,210);
     hair2 = new Hair(265,265,125,1.8);
     hair3 = new Hair(225,393,175);
@@ -411,6 +413,7 @@ function createArtwork(){
 }
 
 function displayArtwork(){
+    updateWeather();
     dispalyBackgrounRect();
     rect1.display();
     hair3.display();
@@ -433,6 +436,8 @@ function displayArtwork(){
     bar2.display();
     bar3.display();
     bar4.display();
+    drawRain();
+    drawWind();
     // frame.display();
 }
 
