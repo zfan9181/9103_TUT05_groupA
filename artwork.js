@@ -414,6 +414,7 @@ function createArtwork(){
 
 function displayArtwork(){
     updateWeather();
+    weatherAtmosUpdate();
     dispalyBackgrounRect();
     rect1.display();
     hair3.display();
@@ -436,8 +437,10 @@ function displayArtwork(){
     bar2.display();
     bar3.display();
     bar4.display();
+    weatherAtmosUpdate();
     drawRain();
     drawWind();
+    
     // frame.display();
 }
 
