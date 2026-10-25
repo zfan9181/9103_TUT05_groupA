@@ -3,6 +3,7 @@ let eyes = [];
 let shapes = [];
 let weather;
 
+
 let face;
 face = {
   x: 455,y: 400,width: 380,height: 360,colour: "#ffe159",faceRotation:0.13,scale: 1,  
@@ -264,15 +265,16 @@ class Eye {
 
 class Hair {
 
-  constructor(x, y, size,strokeW=2,color="#2C292D",ringColor="white") {
+  constructor(x, y, size,) {
 
     this.x = x;
     this.y = y;
     this.size = size;
-    this.strokeW = strokeW;
-    this.color = color;
-    this.ringColor = ringColor;
+    this.strokeW = 2;
+    this.color = "#2C292D"
+    this.ringColor = "white"
     this.scale = 1;
+    this.displacement = 0;
   }
 
 
@@ -280,23 +282,27 @@ class Hair {
 
     push();
 
+    
     translate(this.x, this.y);
     scale(this.scale);
 
     // black hair circle
     fill(this.color);
     noStroke();
-
-    circle(0, 0, this.size);
+    
+    
+    circle(0 + this.displacement, 0, this.size);
 
     // white rings
     noFill();
     stroke(this.ringColor);
     strokeWeight(this.strokeW);
 
-    circle(0, 0, this.size * 0.78);
-    circle(0, 0, this.size * 0.58);
-    circle(0, 0, this.size * 0.38);
+    
+
+    circle(0 + this.displacement, 0, this.size * 0.78);
+    circle(0 + this.displacement, 0, this.size * 0.58);
+    circle(0 + this.displacement, 0, this.size * 0.38);
 
     pop();
 
@@ -396,8 +402,8 @@ let bar1, bar2, bar3, bar4;
 let frame;
 function createArtwork(){
     weather = new weatherManager(); 
-    hair1 = new Hair(390,205,210);
-    hair2 = new Hair(265,265,125,1.8);
+    hair1 = new Hair(390,205,210)
+    hair2 = new Hair(265,265,125)
     hair3 = new Hair(225,393,175);
     eye1 = new Eye(365,345,130,58);
     eye2 = new Eye(537,247,165,58,-0.84);
@@ -414,6 +420,7 @@ function createArtwork(){
 
 function displayArtwork(){
     updateWeather();
+    updateHairDisplacement();
     dispalyBackgrounRect();
     rect1.display();
     hair3.display();
