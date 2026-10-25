@@ -21,7 +21,7 @@ class rainDrop {
         this.x = random(0,width);
         this.y = 0;
         this.scale = random(2, 5);
-        this.speed = 15
+        this.speed = 30
     }
     updateRainDrop() {
           this.y += this.speed
@@ -33,7 +33,7 @@ class rainDrop {
         const rainAngle = map(weather.windIntensity, 0.1, 1, 0, 0.4);
         rotate(-rainAngle);
         strokeWeight(this.scale);
-        stroke(200, 200, 200);   
+        stroke(174, 219, 235);   
         line(0, 0, 0, random(8,12));
         pop();
     }
@@ -54,7 +54,7 @@ class windStream {
         push();
         translate(this.x, this.y);
         strokeWeight(this.scale);
-        stroke(255, 255, 255);
+        stroke(200 , 200, 200);
         line(0, 0, random(30,75), 0);
         pop();
     }
@@ -69,7 +69,14 @@ let lastRainDropTime = 0;        //Provides a variable to keep track of the last
 let lastWindStreamTime = 0;      //Provides a variable to keep track of the last time the wind class was called.
 let weatherAtmosColour;
 let weatherAtmosIntensity;
-
+let lastDisplacementChange = 0;
+let hairDisplacementTarget1 = 0; 
+let hairDisplacementTarget2 = 0;
+let hairDisplacementTarget3 = 0;
+let hairDisplacement1;
+let hairDisplacement2;
+let hairDisplacement3;
+let hairDisplacementInterval;
 
 //Function to update weather values based on duration and intensity
 function updateWeather(){
@@ -84,7 +91,7 @@ function updateWeather(){
         weather.windDuration = random(5000, 30000);
         weather.windIntensityTarget = random(0.1, 1);
         weather.lastWindChange = currentTime;
-        console.log("Wind Intensity Updated to " + weather.windIntensity); // FOR DEBUGGING//
+        console.log("Wind Intensity Target Updated to " + weather.windIntensityTarget); // FOR DEBUGGING//
     }
     
     if (currentTime - weather.lastRainChange >= weather.rainDuration) {
@@ -92,14 +99,14 @@ function updateWeather(){
         weather.rainDuration = random(5000, 30000);
         weather.rainIntensityTarget = random(0.1, 1);
         weather.lastRainChange = currentTime;
-        console.log("Rain Intensity Updated to " + weather.rainIntensity); //FOR DEBUGGING//
+        console.log("Rain Intensity Target Updated to " + weather.rainIntensityTarget); //FOR DEBUGGING//
     }
 }
 
 function drawRain() {
     //Initialize a current time variable and an interval variable that is mapped to the rain Intensity value such that the higher the intensity, the lower the interval.
     const currentTime = millis();
-    const rainDropInterval = map(weather.rainIntensity, 0.1, 1, 1000, 10);
+    const rainDropInterval = map(weather.rainIntensity, 0.1, 1, 500, 10);
 
     if (weather.rainIntensity > 0.3) {   // If statement that checks if the rain intensity is above a certain threshold. If it is, the rainDrop class will be called.
         if (currentTime - lastRainDropTime >= rainDropInterval) {   // If statement that checks if the time interval has passed since the last time a rainDrop was created.
@@ -107,17 +114,17 @@ function drawRain() {
             lastRainDropTime = currentTime;
         }
 
-
-        for (let i = rainDrops.length - 1; i >= 0; i--) {   // For loop that cycles through each active drop in the array and calls the update and display functions. 
-           const drop = rainDrops[i];
-            if (rainDrops[i].y > height){
+    }    
+    for (let i = rainDrops.length - 1; i >= 0; i--) {   // For loop that cycles through each active drop in the array and calls the update and display functions. 
+        const drop = rainDrops[i];
+        if (rainDrops[i].y > height){
                 rainDrops.splice(i, 1);
-            } else{                                 
-                drop.updateRainDrop();
-                drop.display();
-            }
+        } else{                                 
+            drop.updateRainDrop();
+            drop.display();
         }
     }
+    
 }
 
 function drawWind() {
@@ -130,16 +137,17 @@ function drawWind() {
             windStreams.push(new windStream());
             lastWindStreamTime = currentTime;
         }
-        for (let i = windStreams.length - 1; i >= 0; i--) {
-            const stream = windStreams[i];
-            if (windStreams[i].x > width){
-                windStreams.splice(i, 1);
-            } else{
-                stream.updateWindStream();
-                stream.display();
-            }
-        }
     }    
+    for (let i = windStreams.length - 1; i >= 0; i--) {
+        const stream = windStreams[i];
+        if (windStreams[i].x > width){
+            windStreams.splice(i, 1);
+        } else{
+            stream.updateWindStream();
+            stream.display();
+        }
+    }
+        
 }
 
 function weatherAtmosUpdate(){   
@@ -152,4 +160,21 @@ function weatherAtmosUpdate(){
     rect(0, 0, width, height);
     pop();
 
+}
+
+function updateHairDisplacement() {
+    const currentTime = millis();
+    hairDisplacementInterval = map(weather.windIntensity, 0.1, 1, 300, 75)
+    if (currentTime - lastDisplacementChange >= hairDisplacementInterval){
+        lastDisplacementChange = millis();
+        
+        hairDisplacementTarget1 = random(-10*(1.5 + weather.windIntensity), 20*(1.5 + weather.windIntensity));
+        hairDisplacementTarget2 = random(-10*(1.5 + weather.windIntensity), 20*(1.5 + weather.windIntensity));
+        hairDisplacementTarget3 = random(-10*(1.5 + weather.windIntensity), 20*(1.5 + weather.windIntensity));
+    }
+
+    const smoothing = map(weather.windIntensity, 0.1, 1, 0.01, 0.03);
+    hair1.displacement = lerp(hair1.displacement, hairDisplacementTarget1, smoothing);
+    hair2.displacement = lerp(hair2.displacement, hairDisplacementTarget2, smoothing);
+    hair3.displacement = lerp(hair3.displacement, hairDisplacementTarget3, smoothing);
 }
