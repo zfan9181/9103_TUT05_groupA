@@ -21,6 +21,7 @@ function draw() {
 
   displayArtwork();
   displayMagnifier();
+  updateVolume(); // arrow keys to change volume
   // frame.display();
   
 }
