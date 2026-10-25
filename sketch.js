@@ -19,6 +19,7 @@ function draw() {
   // image(referenceImg, 0, 0, width, height);
   // noTint();
 
+  updateMouth(); // mouth moves with music
   displayArtwork();
   displayMagnifier();
   updateVolume(); // arrow keys to change volume
