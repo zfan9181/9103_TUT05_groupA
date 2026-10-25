@@ -22,6 +22,7 @@ function draw() {
   updateMouth(); // mouth moves with music
   updateBlush(); // blush changes with the beat
   updateHair(); // hair moves with the beat
+  updateBars(); // white bars move like an equaliser
   displayArtwork();
   displayMagnifier();
   updateVolume(); // arrow keys to change volume

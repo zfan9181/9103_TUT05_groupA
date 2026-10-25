@@ -21,6 +21,14 @@ let bassAverage = 0;
 let lightPink;
 let deepPink;
 
+// White bars, from left to right: bass, lowMid, mid, treble
+let bars;
+let barBottom;
+let barBands = ["bass", "lowMid", "mid", "treble"];
+let barMin = [170, 178, 20, 30];
+let barMax = [245, 205, 85, 140];
+let barLevels = [1, 1, 1, 1];
+
 // Load the music
 function loadMusic() {
   bgMusic = loadSound("assets/beat-driven-music.mp3");
@@ -44,6 +52,10 @@ function setupMusic() {
   // Blush goes from light pink to deep pink
   lightPink = color(blush.colour);
   deepPink = color("#E8457A");
+
+  // Save the bars and where their bottom is
+  bars = [bar1, bar2, bar3, bar4];
+  barBottom = bar1.y + bar1.height / 2;
 }
 
 // Play the music on loop
@@ -131,4 +143,21 @@ function updateHair() {
   hair1.ringPhase = ringPhase;
   hair2.ringPhase = ringPhase;
   hair3.ringPhase = ringPhase;
+}
+
+// The white bars move like a music equaliser
+function updateBars() {
+  for (let i = 0; i < bars.length; i++) {
+    // full height when the music is not playing
+    let target = 1;
+    if (bgMusic.isPlaying()) {
+      let energy = musicFFT.getEnergy(barBands[i]);
+      target = constrain(map(energy, barMin[i], barMax[i], 0, 1), 0, 1);
+    }
+    barLevels[i] = lerp(barLevels[i], target, 0.3);
+
+    // grow from the bottom, so move the bar up when it gets taller
+    bars[i].height = map(barLevels[i], 0, 1, 80, 250);
+    bars[i].y = barBottom - bars[i].height / 2;
+  }
 }
