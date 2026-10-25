@@ -20,6 +20,8 @@ function draw() {
   // noTint();
 
   updateMouth(); // mouth moves with music
+  updateBlush(); // blush changes with the beat
+  updateHair(); // hair moves with the beat
   displayArtwork();
   displayMagnifier();
   updateVolume(); // arrow keys to change volume

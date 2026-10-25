@@ -275,6 +275,7 @@ class Hair {
     this.ringColor = "white"
     this.scale = 1;
     this.displacement = 0;
+    this.ringPhase = 0;
   }
 
 
@@ -300,9 +301,11 @@ class Hair {
 
     
 
-    circle(0 + this.displacement, 0, this.size * 0.78);
-    circle(0 + this.displacement, 0, this.size * 0.58);
-    circle(0 + this.displacement, 0, this.size * 0.38);
+    // ringPhase 0 keeps the original ring sizes (0.38, 0.58, 0.78)
+    for (let i = 0; i < 3; i++) {
+      let ringSize = 0.2 + (0.18 + i * 0.2 + this.ringPhase) % 0.6;
+      circle(0 + this.displacement, 0, this.size * ringSize);
+    }
 
     pop();
 

@@ -13,6 +13,14 @@ let mouthLowerY;
 let mouthUpperRotation;
 let mouthLowerRotation;
 
+// Drum beat (used by the blush and the hair)
+let beatAmount = 0;
+let bassAverage = 0;
+
+// Blush colour
+let lightPink;
+let deepPink;
+
 // Load the music
 function loadMusic() {
   bgMusic = loadSound("assets/beat-driven-music.mp3");
@@ -32,6 +40,10 @@ function setupMusic() {
   mouthLowerY = mouth.lowerY;
   mouthUpperRotation = mouth.upperRotation;
   mouthLowerRotation = mouth.lowerRotation;
+
+  // Blush goes from light pink to deep pink
+  lightPink = color(blush.colour);
+  deepPink = color("#E8457A");
 }
 
 // Play the music on loop
@@ -83,4 +95,40 @@ function updateMouth() {
   mouth.lowerRotation = mouthLowerRotation + mouthOpen * 0.3;
   mouth.upperY = mouthUpperY - mouthOpen * 6;
   mouth.lowerY = mouthLowerY + mouthOpen * 6;
+}
+
+// Find the drum beat and change the blush colour
+function updateBlush() {
+  let bass = musicFFT.getEnergy("bass");
+
+  // Average bass level, used to find the beats
+  bassAverage = lerp(bassAverage, bass, 0.05);
+
+  // Stronger when the bass jumps above the average
+  let target = constrain(map(bass - bassAverage, 0, 30, 0, 1), 0, 1);
+
+  // Go up fast, then come back down slowly (easing)
+  if (target > beatAmount) {
+    beatAmount = lerp(beatAmount, target, 0.5);
+  } else {
+    beatAmount = lerp(beatAmount, target, 0.08);
+  }
+
+  blush.colour = lerpColor(lightPink, deepPink, beatAmount);
+}
+
+// Hair grows with the drum beat and the white rings keep moving
+function updateHair() {
+  let hairScale = 1 + beatAmount * 0.12;
+
+  // move one ring every 30 frames (about one beat), then start again
+  let ringPhase = (frameCount / 30 * 0.2) % 0.6;
+
+  hair1.scale = hairScale;
+  hair2.scale = hairScale;
+  hair3.scale = hairScale;
+
+  hair1.ringPhase = ringPhase;
+  hair2.ringPhase = ringPhase;
+  hair3.ringPhase = ringPhase;
 }
