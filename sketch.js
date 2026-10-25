@@ -2,13 +2,14 @@
 
 function preload(){
   // referenceImg = loadImage("assets/artwork.jpg")
+  loadMusic(); // load music
 }
 
 function setup() {
   createCanvas(800, 800);
   
   createArtwork();
-
+  setupMusic(); // click to play music
   
 }
 
