@@ -412,6 +412,7 @@ function createArtwork(){
     eye2 = new Eye(537,247,165,58,-0.84);
     eye3 = new Eye(562,318,165,58,-0.47);
     eye4 = new Eye(578,393,165,58,0.1);
+    eyes = [eye1, eye2, eye3, eye4];
     rect1 = new Shape(430,637,280,130,"rectangle","#d25216");
     rect2 = new Shape(510,637,220,95,"rectangle","#4BBCCC");
     bar1 = new Shape(560,560,10,250,"rectangle","white");
@@ -455,7 +456,7 @@ function displayArtwork(){
 
 hairs = [hair1, hair2, hair3];
 
-eyes = [eye1, eye2, eye3, eye4];
+
 
 shapes = [
   rect1, rect2,

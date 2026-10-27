@@ -25,6 +25,7 @@ function draw() {
   updateBars(); // white bars move like an equaliser
   displayArtwork();
   displayMagnifier();
+  updateEyeTraking();
   updateVolume(); // arrow keys to change volume
   // frame.display();
   

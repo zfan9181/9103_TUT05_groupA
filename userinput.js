@@ -1,21 +1,17 @@
-// console.log("NEW userInput.js loaded");
+
 
 let isDraggingFrame = false;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
+//enlarge strength
+let enlarge = 1.12;
 
-// Magnification strength
-let magnification = 1.12;
-
-
-// Start dragging the frame
+//drag the frame
 function mousePressed() {
-
   let left = frame.x - frame.width / 2;
   let right = frame.x + frame.width / 2;
   let top = frame.y - frame.height / 2;
   let bottom = frame.y + frame.height / 2;
-
   if (
     mouseX >= left &&
     mouseX <= right &&
@@ -28,11 +24,8 @@ function mousePressed() {
     dragOffsetY = mouseY - frame.y;
   }
 }
-
-
-// Move the frame
+//Move the frame
 function mouseDragged() {
-
   if (isDraggingFrame) {
 
     frame.x = constrain(
@@ -49,33 +42,24 @@ function mouseDragged() {
 
   }
 }
-
-
 // Stop dragging
 function mouseReleased() {
   isDraggingFrame = false;
 }
-
-
 // Display the magnifying effect
 function displayMagnifier() {
-
-  // Calculate the smaller source area
-  let sourceW = frame.width / magnification;
-  let sourceH = frame.height / magnification;
-
+  // the original source area
+  let sourceW = frame.width / enlarge;
+  let sourceH = frame.height / enlarge;
   let sourceX = frame.x - sourceW / 2;
   let sourceY = frame.y - sourceH / 2;
-
-  // Capture the artwork underneath the frame
   let magnifiedArea = get(
     sourceX,
     sourceY,
     sourceW,
     sourceH
   );
-
-  // Stretch that area to fill the frame
+  // after enlarged
   image(
     magnifiedArea,
     frame.x - frame.width / 2,
@@ -83,7 +67,15 @@ function displayMagnifier() {
     frame.width,
     frame.height
   );
-
-  // Draw the white frame on top
+  // the white frame on top
   frame.display();
+}
+
+// eye follow
+function updateEyeTraking(){
+  for(let eye of eyes){
+    eye.pupilX = (mouseX / width - 0.5) * 35;
+
+    eye.pupilY = (mouseY / height - 0.5) * 6;
+  }
 }
