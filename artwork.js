@@ -56,17 +56,17 @@ tear = {
   y: 425,
   scale: 0.95,
   rotation: 0,
-  colour: "#4BBCCC"
+  color: "#4BBCCC"
 };
-function displayTear() {
+function displayTear(drop) {
   push();
 
-  translate(tear.x, tear.y);
-  rotate(tear.rotation);
-  scale(tear.scale);
+  translate(drop.x, drop.y);
+  rotate(drop.rotation);
+  scale(drop.scale);
 
   noStroke();
-  fill(tear.colour);
+  fill(drop.color);
 
   beginShape();
 
@@ -80,6 +80,8 @@ function displayTear() {
 
   pop();
 }
+let fallingTears = [];
+
 
 let nose;
 nose = {x: 420,y: 317,scale: 0.9,rotation: -0.05,colour: "#FC6785",
@@ -434,9 +436,13 @@ function displayArtwork(){
     displayMouth();
     hair2.display();
     hair1.display();
-    displayTear();
-    displayEarring();
 
+    if(!isCrying){displayTear(tear);}
+    for(let drop of fallingTears){
+      displayTear(drop);
+    }
+
+    displayEarring();
     eye1.display();
     eye2.display();
     eye3.display();

@@ -24,6 +24,7 @@ function draw() {
   updateHair(); // hair moves with the beat
   updateBars(); // white bars move like an equaliser
   displayArtwork();
+  updateTear();
   displayMagnifier();
   updateEyeTraking();
   updateVolume(); // arrow keys to change volume

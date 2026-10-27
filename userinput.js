@@ -79,3 +79,26 @@ function updateEyeTraking(){
     eye.pupilY = (mouseY / height - 0.5) * 6;
   }
 }
+
+// tear drop
+let isCrying = false;
+
+function mouseClicked(){
+  if(isCrying){
+    isCrying = false;
+  }
+  else if(abs(mouseX-tear.x)<25 && abs(mouseY-tear.y),45){
+    isCrying = true;
+  }
+}
+function updateTear(){
+  if(!isCrying)return;
+  
+  if(frameCount % 55 === 0){
+    fallingTears.push({x:tear.x,y:tear.y,scale:tear.scale,rotation:tear.rotation,color:tear.color});
+  }
+  for(let drop of fallingTears){
+    drop.y+=2;
+  }
+  fallingTears = fallingTears.filter(drop=>drop.y<600);
+}
