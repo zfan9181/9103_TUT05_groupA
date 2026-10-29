@@ -427,7 +427,7 @@ function createArtwork(){
 function displayArtwork(){
     updateWeather();
     updateHairDisplacement();
-    dispalyBackgrounRect();
+    displayBackground();
     rect1.display();
     hair3.display();
     displayFace();

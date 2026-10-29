@@ -10,6 +10,7 @@ function setup() {
   
   createArtwork();
   setupMusic(); // click to play music
+  createBackgroundSegments();
   
 }
 
