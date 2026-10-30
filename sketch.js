@@ -26,12 +26,12 @@ function draw() {
   updateHair(); // hair moves with the beat
   updateBars(); // white bars move like an equaliser
   displayArtwork();
+  updateSides(); // copy the background to the sides, before the magnifier is drawn
   updateTear();
   displayMagnifier();
   updateEyeTraking();
   updateVolume(); // arrow keys to change volume
   // frame.display();
   updateBackground(); //background color changes 
-  updateSides(); // copy the background to the sides, keep this last
 
 }
