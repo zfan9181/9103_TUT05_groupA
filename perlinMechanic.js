@@ -23,9 +23,23 @@ class BackgroundSegment {
 
     let noiseValue = noise(noiseX, noiseY);  // Get the Perlin noise value
     
-    // Set the background colour and cloud colour
-    let backgroundColour = color("#F49AB5");
+    // Stronger weather gives a higher value
+    let weatherIntensity = (weather.windIntensity + weather.rainIntensity) / 2;
+
+    // Set the sunny and dark background colours.
+    let sunnyColour = color("#F49AB5");
+    let darkColour = color("#1ea7f0");
+
+    // Stronger weather makes the dark areas more visible.
+    let darkAmount = weatherIntensity * (1 - noiseValue);
+
+    // Blend between the sunny pink and darker weather colour.
+    let backgroundColour = lerpColor(sunnyColour, darkColour, darkAmount);
+
+    // Make the clouds white.
     let cloudColour = color("#FFFFFF");
+
+    
 
     // This variable stores the final color of this segment
     let segmentColour=backgroundColour;
