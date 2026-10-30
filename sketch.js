@@ -11,6 +11,7 @@ function setup() {
   createArtwork();
   setupMusic(); // click to play music
   createBackgroundSegments();
+  setupSides(); // background on the sides of the screen
   
 }
 
@@ -31,5 +32,6 @@ function draw() {
   updateVolume(); // arrow keys to change volume
   // frame.display();
   updateBackground(); //background color changes 
+  updateSides(); // copy the background to the sides, keep this last
 
 }
