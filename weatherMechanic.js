@@ -30,7 +30,7 @@ class rainDrop {
     display() {
         push();
         translate(this.x, this.y);
-        const rainAngle = map(weather.windIntensity, 0.1, 1, 0, 0.4);
+        const rainAngle = map(weather.windIntensity, 0.1, 1, 0, 0.5);
         rotate(-rainAngle);
         strokeWeight(this.scale);
         stroke(174, 219, 235);   
@@ -108,7 +108,7 @@ function drawRain() {
     const currentTime = millis();
     const rainDropInterval = map(weather.rainIntensity, 0.1, 1, 500, 10);
 
-    if (weather.rainIntensity > 0.3) {   // If statement that checks if the rain intensity is above a certain threshold. If it is, the rainDrop class will be called.
+    if (weather.rainIntensity > 0.45) {   // If statement that checks if the rain intensity is above a certain threshold. If it is, the rainDrop class will be called.
         if (currentTime - lastRainDropTime >= rainDropInterval) {   // If statement that checks if the time interval has passed since the last time a rainDrop was created.
             rainDrops.push(new rainDrop());                         // If true, a new rainDrop Class instance is pushed into the rainDrops array.
             lastRainDropTime = currentTime;
@@ -132,7 +132,7 @@ function drawWind() {
     const currentTime = millis();
     const windStreamInterval = map(weather.windIntensity, 0.1, 1, 1000, 50);
 
-    if (weather.windIntensity > 0.3){
+    if (weather.windIntensity > 0.45){
         if (currentTime - lastWindStreamTime >= windStreamInterval) {
             windStreams.push(new windStream());
             lastWindStreamTime = currentTime;
@@ -173,8 +173,8 @@ function updateHairDisplacement() {
         hairDisplacementTarget3 = random(-10*(1.5 + weather.windIntensity), 20*(1.5 + weather.windIntensity));
     }
 
-    const smoothing = map(weather.windIntensity, 0.1, 1, 0.01, 0.03);
-    hair1.displacement = lerp(hair1.displacement, hairDisplacementTarget1, smoothing);
-    hair2.displacement = lerp(hair2.displacement, hairDisplacementTarget2, smoothing);
-    hair3.displacement = lerp(hair3.displacement, hairDisplacementTarget3, smoothing);
+    const interpolation = map(weather.windIntensity, 0.1, 1, 0.01, 0.03);
+    hair1.displacement = lerp(hair1.displacement, hairDisplacementTarget1, interpolation);
+    hair2.displacement = lerp(hair2.displacement, hairDisplacementTarget2, interpolation);
+    hair3.displacement = lerp(hair3.displacement, hairDisplacementTarget3, interpolation);
 }
