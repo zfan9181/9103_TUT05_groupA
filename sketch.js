@@ -11,6 +11,7 @@ function setup() {
   createArtwork();
   setupMusic(); // click to play music
   createBackgroundSegments();
+  setupSides(); // background on the sides of the screen
   
 }
 
@@ -25,6 +26,7 @@ function draw() {
   updateHair(); // hair moves with the beat
   updateBars(); // white bars move like an equaliser
   displayArtwork();
+  updateSides(); // copy the background to the sides, before the magnifier is drawn
   updateTear();
   displayMagnifier();
   updateEyeTraking();

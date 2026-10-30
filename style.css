@@ -1,8 +1,23 @@
 html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2C292D;
+  overflow: hidden;
 }
 
 canvas {
   display: block;
+}
+
+/* only the main artwork canvas */
+#defaultCanvas0 {
+  width: min(100vw, 100vh) !important;
+  height: min(100vw, 100vh) !important;
 }
