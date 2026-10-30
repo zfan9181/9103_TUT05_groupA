@@ -30,5 +30,6 @@ function draw() {
   updateEyeTraking();
   updateVolume(); // arrow keys to change volume
   // frame.display();
-  
+  updateBackground(); //background color changes 
+
 }
