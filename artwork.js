@@ -427,7 +427,9 @@ function createArtwork(){
 function displayArtwork(){
     updateWeather();
     updateHairDisplacement();
-    displayBackground();
+    displayBackground(); // fills the whole screen
+
+    startArt(); // the portrait, scaled to the middle of the screen
     rect1.display();
     hair3.display();
     displayFace();
@@ -452,10 +454,16 @@ function displayArtwork(){
     bar2.display();
     bar3.display();
     bar4.display();
+    endArt();
+
+    // weather fills the whole screen
     weatherAtmosUpdate();
     drawRain();
     drawWind();
+
+    startArt();
     displayClothes();
+    endArt();
     
     // frame.display();
 }

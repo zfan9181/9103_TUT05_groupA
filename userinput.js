@@ -1,5 +1,3 @@
-
-
 let isDraggingFrame = false;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
@@ -12,32 +10,34 @@ function mousePressed() {
   let right = frame.x + frame.width / 2;
   let top = frame.y - frame.height / 2;
   let bottom = frame.y + frame.height / 2;
+  // artMouseX / artMouseY: mouse position on the portrait (see sketch.js)
   if (
-    mouseX >= left &&
-    mouseX <= right &&
-    mouseY >= top &&
-    mouseY <= bottom
+    artMouseX() >= left &&
+    artMouseX() <= right &&
+    artMouseY() >= top &&
+    artMouseY() <= bottom
   ) {
     isDraggingFrame = true;
 
-    dragOffsetX = mouseX - frame.x;
-    dragOffsetY = mouseY - frame.y;
+    dragOffsetX = artMouseX() - frame.x;
+    dragOffsetY = artMouseY() - frame.y;
   }
 }
 //Move the frame
 function mouseDragged() {
   if (isDraggingFrame) {
 
+    // keep the frame on the portrait (ART_SIZE = 800)
     frame.x = constrain(
-      mouseX - dragOffsetX,
+      artMouseX() - dragOffsetX,
       frame.width / 2,
-      width - frame.width / 2
+      ART_SIZE - frame.width / 2
     );
 
     frame.y = constrain(
-      mouseY - dragOffsetY,
+      artMouseY() - dragOffsetY,
       frame.height / 2,
-      height - frame.height / 2
+      ART_SIZE - frame.height / 2
     );
 
   }
@@ -53,11 +53,12 @@ function displayMagnifier() {
   let sourceH = frame.height / enlarge;
   let sourceX = frame.x - sourceW / 2;
   let sourceY = frame.y - sourceH / 2;
+  // get() reads pixels from the screen, so turn the portrait position into a screen position
   let magnifiedArea = get(
-    sourceX,
-    sourceY,
-    sourceW,
-    sourceH
+    artX + sourceX * artScale,
+    artY + sourceY * artScale,
+    sourceW * artScale,
+    sourceH * artScale
   );
   // after enlarged
   image(
@@ -87,7 +88,7 @@ function mouseClicked(){
   if(isCrying){
     isCrying = false;
   }
-  else if(abs(mouseX-tear.x)<25 && abs(mouseY-tear.y),45){
+  else if(abs(artMouseX()-tear.x)<25 && abs(artMouseY()-tear.y),45){
     isCrying = true;
   }
 }
