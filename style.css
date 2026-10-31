@@ -1,9 +1,72 @@
+:root {
+  --frame: 26px;   /* gold frame */
+  --mat: 40px;     /* cream mat between the frame and the artwork */
+  --ring: calc(var(--frame) + var(--mat));
+  --gap: 40px;     /* space between the frame and the edge of the screen */
+  --label: 330px;  /* space for the label next to the frame */
+}
+
 html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+
+/* the wall */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 60px;
+  background-color: #171516;
+  background-image: url("assets/wall-flowers.svg");
   overflow: hidden;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+main {
+  order: 1;
 }
 
 canvas {
   display: block;
+}
+
+/* the artwork, with a mat, a gold frame and a shadow around it */
+#defaultCanvas0 {
+  width: min(100vh - 2 * (var(--ring) + var(--gap)), 100vw - 2 * (var(--ring) + var(--gap)) - var(--label)) !important;
+  height: min(100vh - 2 * (var(--ring) + var(--gap)), 100vw - 2 * (var(--ring) + var(--gap)) - var(--label)) !important;
+  margin: var(--ring);
+  margin-bottom: calc(var(--ring) + var(--gap));
+  box-shadow:
+    0 0 0 var(--mat) #F4EFE6,
+    0 0 0 var(--ring) #C8A15A,
+    20px 30px 50px var(--ring) rgba(0, 0, 0, 0.45);
+}
+
+/* the label next to the artwork */
+#label {
+  order: 2;
+  width: 220px;
+  margin-bottom: var(--gap);
+  padding: 24px;
+  background-color: #F4EFE6;
+  color: #2C292D;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#label h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+#label p {
+  margin: 0;
+}
+
+#label hr {
+  border: none;
+  border-top: 1px solid #2C292D;
+  margin: 14px 0;
 }

@@ -71,12 +71,8 @@ display(){
 
 //Divides the canvas into a grid
 function createBackgroundSegments(){
-    //Start again, so this can be called when the window changes size
-    backgroundSegments=[];
-
-    //Keep the segments square on any screen size
-    let segmentWidth = max(width, height) / numSegments;
-    let segmentHeight = segmentWidth;
+    let segmentWidth = width / numSegments;
+    let segmentHeight = height / numSegments;
 
     for (let y=0; y < height; y+=segmentHeight){
         for(let x=0; x < width; x+=segmentWidth){
