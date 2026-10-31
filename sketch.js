@@ -11,8 +11,12 @@ function setup() {
   createArtwork();
   setupMusic(); // click to play music
   createBackgroundSegments();
+  createOrangeFragments();
+  createBlueFragments();
+  createYellowTriangleFragments();
+  createBlackTriangleFragments();
   setupSides(); // background on the sides of the screen
-  
+
 }
 
 function draw() {
@@ -26,6 +30,7 @@ function draw() {
   updateHair(); // hair moves with the beat
   updateBars(); // white bars move like an equaliser
   displayArtwork();
+  displayClothingFragments();
   updateSides(); // copy the background to the sides, before the magnifier is drawn
   updateTear();
   displayMagnifier();

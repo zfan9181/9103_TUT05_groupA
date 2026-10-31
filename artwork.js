@@ -447,7 +447,6 @@ function displayArtwork(){
     eye2.display();
     eye3.display();
     eye4.display();
-    displayClothes();
     rect2.display();
     bar1.display();
     bar2.display();
@@ -456,6 +455,7 @@ function displayArtwork(){
     weatherAtmosUpdate();
     drawRain();
     drawWind();
+    displayClothes();
     
     // frame.display();
 }
