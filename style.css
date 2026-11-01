@@ -18,8 +18,7 @@ body {
   justify-content: center;
   align-items: flex-end;
   gap: 60px;
-  background-color: #171516;
-  background-image: url("assets/wall-flowers.svg");
+  background-color: #EDE3CF;
   overflow: hidden;
   font-family: "Helvetica Neue", Arial, sans-serif;
 }
@@ -52,6 +51,7 @@ canvas {
   padding: 24px;
   background-color: #F4EFE6;
   color: #2C292D;
+  box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.18);
   font-size: 14px;
   line-height: 1.5;
 }
