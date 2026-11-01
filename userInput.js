@@ -112,7 +112,6 @@ function mouseClicked(){
     isCrying = true;
     fallingTears.push({x:tear.x,y:tear.y,scale:tear.scale,rotation:tear.rotation,color:tear.color});
   }
-  }
 }
 function updateTear(){
   if(!isCrying)return;

@@ -451,10 +451,7 @@ function displayArtwork(){
     eye3.display();
     eye4.display();
     rect2.display();
-    bar1.display();
-    bar2.display();
-    bar3.display();
-    bar4.display();
+    // the white bars are drawn in sketch.js, on top of the clothing pieces
     weatherAtmosUpdate();
     drawRain();
     drawWind();
@@ -472,4 +469,3 @@ shapes = [
   bar1, bar2, bar3, bar4,
   frame
 ];
-

@@ -33,6 +33,7 @@ function draw() {
   updateBars(); // white bars move like an equaliser
   displayArtwork();
   displayClothingFragments();
+  displayBars(); // white bars on top of the clothing pieces
   updateTear();
   displayMagnifier();
   updateEyeTraking();

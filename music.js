@@ -161,3 +161,10 @@ function updateBars() {
     bars[i].y = barBottom - bars[i].height / 2;
   }
 }
+
+// Draw the white bars (called after the clothing pieces, so the bars stay on top)
+function displayBars() {
+  for (let bar of bars) {
+    bar.display();
+  }
+}
