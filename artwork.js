@@ -430,21 +430,22 @@ function displayArtwork(){
     displayBackground();
     rect1.display();
     hair3.display();
+    displayHairFragmentsFor(hair3);
     displayFace();
     displayBlush();
     displayNose();
     displayMouth();
     hair2.display();
+    displayHairFragmentsFor(hair2);
     hair1.display();
+    displayHairFragmentsFor(hair1);
 
     if(!isCrying){displayTear(tear);}
     for(let drop of fallingTears){
       displayTear(drop);
     }
-    
-   displayMovingEarring(); 
 
-
+    displayMovingEarring();
     eye1.display();
     eye2.display();
     eye3.display();
@@ -471,3 +472,4 @@ shapes = [
   bar1, bar2, bar3, bar4,
   frame
 ];
+

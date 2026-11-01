@@ -16,6 +16,7 @@ function setup() {
   createBlueFragments();
   createYellowTriangleFragments();
   createBlackTriangleFragments();
+  createHairFragments();
 
 }
 

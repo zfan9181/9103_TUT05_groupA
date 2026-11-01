@@ -373,9 +373,9 @@ function displayClothingFragments(){
 
 
 
+//add an Earring effect//////////////////////////////////////
 
-
-//add an Earring highlight//////////////////////////////////////
+//add an Earring highlight
 
 let earringHighlight=0;
 let earringNoise=0;
@@ -419,4 +419,126 @@ function updateEarringSwing(){
     //Create smooth movement, Control tge movement mostly to the right with the wind direction
     earringSwing=map(noise(frameCount*0.03), 0, 1, swingAmount*0.4, swingAmount 
     );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Living Hair//////////////////
+let hairFragments=[];
+
+//Create one small circle fragment on the black hair
+class HairFragment{
+    constructor(hair, angle, radiusRatio){
+        this.hair=hair;
+        this.angle=angle;
+        this.radiusRatio=radiusRatio;
+        this.size=7;
+
+        //Control the main color and the chaning color
+        this.mainColor="#000000";
+        this.lightColor="#ffffff";
+
+        this.currentColor=this.mainColor;
+        this.noiseX=random(1000);
+        this.noiseY=random(1000);
+        this.moveX=0;
+        this.moveY=0;
+    }
+
+    //Update slight movement and flicker effect as the clothing effect
+    update(){
+        let audioEnergy= barLevels[0]+ barLevels[1]+ barLevels[2]+ barLevels[3];
+        audioEnergy=map(audioEnergy, 0, 4, 0, 1);
+        audioEnergy=constrain(audioEnergy, 0, 1);
+
+        //Make the movement stronger when the audio energy is stronger
+        let moveAmount=map(audioEnergy, 0, 1, 0.2, 2);
+
+        //Use Perlin noise for slight smooth movement
+        this.moveX=map(noise(this.noiseX), 0, 1, -moveAmount, moveAmount);
+        this.moveY=map( noise(this.noiseY), 0, 1, -moveAmount, moveAmount);
+
+        //Make the movement become faster when the audio energy is stronger
+        let noiseSpeed=map( audioEnergy, 0, 1, 0.01, 0.05);
+        this.noiseX+=noiseSpeed;
+        this.noiseY+=noiseSpeed;
+
+        //Make more pieces change color when the audio energy is stronger
+        let flashChance=map(audioEnergy, 0, 1, 0.005, 0.08);
+
+        //Randomly change to light color
+        if(random(1)<flashChance){
+            this.currentColor=this.lightColor;
+        }
+        //Return to main color
+        if(random(1)<0.08){
+            this.currentColor=this.mainColor;
+        }
+    }
+
+    //Draw one small hair circle piece
+    display(){
+        push();
+        translate(this.hair.x, this.hair.y);
+        scale(this.hair.scale);
+
+        //Calculate how far this circle is from the centre of the hair
+        let radius= this.hair.size*this.radiusRatio/2;
+
+        //Calculate where this small circle should be around the hair
+        let fragmentX= this.hair.displacement+ cos(this.angle)*radius;
+        let fragmentY= sin(this.angle)*radius;
+
+        //Add slight Perlin noise movement
+        fragmentX+=this.moveX;
+        fragmentY+=this.moveY;
+
+        noStroke();
+        fill(this.currentColor);
+        circle(fragmentX, fragmentY, this.size);
+        pop();
+    }
+}
+
+
+//Create hair circlr pieces
+function createHairFragments(){
+    let hairList=[hair1, hair2, hair3];
+
+    ///set how far the three rows of small circles are from the hair centre
+    let ringRadius=[0.52, 0.70, 0.88];
+    for(let hair of hairList){
+
+        //Create three rings
+        for(let radiusRatio of ringRadius){
+
+            //Create small circles around each ring
+            for(let angle=0; angle<TWO_PI; angle+=0.15){
+                let fragment= new HairFragment(hair, angle, radiusRatio);
+                hairFragments.push(fragment);
+            }
+        }
+    }
+}
+
+
+//Display the one hair pieces
+function displayHairFragmentsFor(targetHair){
+    for(let fragment of hairFragments){
+        if(fragment.hair==targetHair){
+            fragment.update();
+            fragment.display();
+        }
+    }
 }
