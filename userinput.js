@@ -1,10 +1,8 @@
-
-
 let isDraggingFrame = false;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
 //enlarge strength
-let enlarge = 1.12;
+let enlarge = 1.5;
 
 //drag the frame
 function mousePressed() {
@@ -46,29 +44,50 @@ function mouseDragged() {
 function mouseReleased() {
   isDraggingFrame = false;
 }
-// Display the magnifying effect
+// Display the magnifying glass
 function displayMagnifier() {
-  // the original source area
-  let sourceW = frame.width / enlarge;
-  let sourceH = frame.height / enlarge;
-  let sourceX = frame.x - sourceW / 2;
-  let sourceY = frame.y - sourceH / 2;
+  // size of the round lens
+  let lensSize = frame.height + 20;
+
+  // the original source area: a square, smaller than the lens
+  // (read it first, so the glass itself doesn't get magnified)
+  let sourceSize = lensSize / enlarge;
   let magnifiedArea = get(
-    sourceX,
-    sourceY,
-    sourceW,
-    sourceH
+    frame.x - sourceSize / 2,
+    frame.y - sourceSize / 2,
+    sourceSize,
+    sourceSize
   );
-  // after enlarged
-  image(
-    magnifiedArea,
-    frame.x - frame.width / 2,
-    frame.y - frame.height / 2,
-    frame.width,
-    frame.height
-  );
-  // the white frame on top
-  frame.display();
+
+  // handle, drawn first so the lens sits on top of it
+  push();
+  translate(frame.x, frame.y);
+  rotate(QUARTER_PI);
+  noStroke();
+  fill("#2C292D");
+  rect(lensSize / 2, -7, lensSize * 0.55, 14, 7);
+  fill("#C8A15A");
+  rect(lensSize / 2 - 2, -9, 14, 18, 3);
+  pop();
+
+  // show the enlarged picture inside a circle
+  drawingContext.save();
+  drawingContext.beginPath();
+  drawingContext.arc(frame.x, frame.y, lensSize / 2, 0, TWO_PI);
+  drawingContext.clip();
+  image(magnifiedArea, frame.x - lensSize / 2, frame.y - lensSize / 2, lensSize, lensSize);
+  drawingContext.restore();
+
+  // gold rim and a little shine on the glass
+  push();
+  noFill();
+  stroke("#C8A15A");
+  strokeWeight(7);
+  circle(frame.x, frame.y, lensSize);
+  stroke(255, 255, 255, 120);
+  strokeWeight(4);
+  arc(frame.x, frame.y, lensSize * 0.72, lensSize * 0.72, PI + 0.4, PI + 1.3);
+  pop();
 }
 
 // eye follow

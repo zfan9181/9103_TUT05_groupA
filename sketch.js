@@ -10,12 +10,12 @@ function setup() {
   
   createArtwork();
   setupMusic(); // click to play music
+  setupWall(); // wallpaper that moves with the music
   createBackgroundSegments();
   createOrangeFragments();
   createBlueFragments();
   createYellowTriangleFragments();
   createBlackTriangleFragments();
-  setupSides(); // background on the sides of the screen
 
 }
 
@@ -27,11 +27,11 @@ function draw() {
 
   updateMouth(); // mouth moves with music
   updateBlush(); // blush changes with the beat
+  updateWall(); // wallpaper lights up with the beat
   updateHair(); // hair moves with the beat
   updateBars(); // white bars move like an equaliser
   displayArtwork();
   displayClothingFragments();
-  updateSides(); // copy the background to the sides, before the magnifier is drawn
   updateTear();
   displayMagnifier();
   updateEyeTraking();

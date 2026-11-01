@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140">
+  <!-- Flower wallpaper: big flowers in a half-drop repeat, small rings in between.
+       The big flowers sit at the same places as in wall.js, so they can bloom with the music. -->
+  <g fill="#211E1F" stroke="#C8A15A" stroke-opacity="0.45" stroke-width="1.2">
+    <ellipse cx='18.70' cy='0.00' rx='17.00' ry='9.35' transform='rotate(0.0 18.70 0.00)'/>
+    <ellipse cx='9.35' cy='16.19' rx='17.00' ry='9.35' transform='rotate(60.0 9.35 16.19)'/>
+    <ellipse cx='-9.35' cy='16.19' rx='17.00' ry='9.35' transform='rotate(120.0 -9.35 16.19)'/>
+    <ellipse cx='-18.70' cy='0.00' rx='17.00' ry='9.35' transform='rotate(180.0 -18.70 0.00)'/>
+    <ellipse cx='-9.35' cy='-16.19' rx='17.00' ry='9.35' transform='rotate(240.0 -9.35 -16.19)'/>
+    <ellipse cx='9.35' cy='-16.19' rx='17.00' ry='9.35' transform='rotate(300.0 9.35 -16.19)'/>
+    <circle cx='0' cy='0' r='9.52' fill='#0F0D0E'/>
+    <circle cx='0' cy='0' r='6.12' fill='none'/>
+    <ellipse cx='158.70' cy='0.00' rx='17.00' ry='9.35' transform='rotate(0.0 158.70 0.00)'/>
+    <ellipse cx='149.35' cy='16.19' rx='17.00' ry='9.35' transform='rotate(60.0 149.35 16.19)'/>
+    <ellipse cx='130.65' cy='16.19' rx='17.00' ry='9.35' transform='rotate(120.0 130.65 16.19)'/>
+    <ellipse cx='121.30' cy='0.00' rx='17.00' ry='9.35' transform='rotate(180.0 121.30 0.00)'/>
+    <ellipse cx='130.65' cy='-16.19' rx='17.00' ry='9.35' transform='rotate(240.0 130.65 -16.19)'/>
+    <ellipse cx='149.35' cy='-16.19' rx='17.00' ry='9.35' transform='rotate(300.0 149.35 -16.19)'/>
+    <circle cx='140' cy='0' r='9.52' fill='#0F0D0E'/>
+    <circle cx='140' cy='0' r='6.12' fill='none'/>
+    <ellipse cx='18.70' cy='140.00' rx='17.00' ry='9.35' transform='rotate(0.0 18.70 140.00)'/>
+    <ellipse cx='9.35' cy='156.19' rx='17.00' ry='9.35' transform='rotate(60.0 9.35 156.19)'/>
+    <ellipse cx='-9.35' cy='156.19' rx='17.00' ry='9.35' transform='rotate(120.0 -9.35 156.19)'/>
+    <ellipse cx='-18.70' cy='140.00' rx='17.00' ry='9.35' transform='rotate(180.0 -18.70 140.00)'/>
+    <ellipse cx='-9.35' cy='123.81' rx='17.00' ry='9.35' transform='rotate(240.0 -9.35 123.81)'/>
+    <ellipse cx='9.35' cy='123.81' rx='17.00' ry='9.35' transform='rotate(300.0 9.35 123.81)'/>
+    <circle cx='0' cy='140' r='9.52' fill='#0F0D0E'/>
+    <circle cx='0' cy='140' r='6.12' fill='none'/>
+    <ellipse cx='158.70' cy='140.00' rx='17.00' ry='9.35' transform='rotate(0.0 158.70 140.00)'/>
+    <ellipse cx='149.35' cy='156.19' rx='17.00' ry='9.35' transform='rotate(60.0 149.35 156.19)'/>
+    <ellipse cx='130.65' cy='156.19' rx='17.00' ry='9.35' transform='rotate(120.0 130.65 156.19)'/>
+    <ellipse cx='121.30' cy='140.00' rx='17.00' ry='9.35' transform='rotate(180.0 121.30 140.00)'/>
+    <ellipse cx='130.65' cy='123.81' rx='17.00' ry='9.35' transform='rotate(240.0 130.65 123.81)'/>
+    <ellipse cx='149.35' cy='123.81' rx='17.00' ry='9.35' transform='rotate(300.0 149.35 123.81)'/>
+    <circle cx='140' cy='140' r='9.52' fill='#0F0D0E'/>
+    <circle cx='140' cy='140' r='6.12' fill='none'/>
+    <ellipse cx='86.19' cy='79.35' rx='17.00' ry='9.35' transform='rotate(30.0 86.19 79.35)'/>
+    <ellipse cx='70.00' cy='88.70' rx='17.00' ry='9.35' transform='rotate(90.0 70.00 88.70)'/>
+    <ellipse cx='53.81' cy='79.35' rx='17.00' ry='9.35' transform='rotate(150.0 53.81 79.35)'/>
+    <ellipse cx='53.81' cy='60.65' rx='17.00' ry='9.35' transform='rotate(210.0 53.81 60.65)'/>
+    <ellipse cx='70.00' cy='51.30' rx='17.00' ry='9.35' transform='rotate(270.0 70.00 51.30)'/>
+    <ellipse cx='86.19' cy='60.65' rx='17.00' ry='9.35' transform='rotate(330.0 86.19 60.65)'/>
+    <circle cx='70' cy='70' r='9.52' fill='#0F0D0E'/>
+    <circle cx='70' cy='70' r='6.12' fill='none'/>
+  </g>
+  <g fill="none" stroke="#C8A15A" stroke-opacity="0.35" stroke-width="1">
+    <circle cx='70' cy='0' r='7'/><circle cx='70' cy='0' r='2' fill='#C8A15A'/>
+    <circle cx='0' cy='70' r='7'/><circle cx='0' cy='70' r='2' fill='#C8A15A'/>
+    <circle cx='140' cy='70' r='7'/><circle cx='140' cy='70' r='2' fill='#C8A15A'/>
+    <circle cx='70' cy='140' r='7'/><circle cx='70' cy='140' r='2' fill='#C8A15A'/>
+  </g>
+</svg>
