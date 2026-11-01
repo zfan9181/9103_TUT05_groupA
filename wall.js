@@ -1,21 +1,17 @@
-// Music wall: botanical print
-// Leafy sprigs on a warm beige wall, with daisies that open and close with the music
-// and little stars that twinkle with the high notes.
-// Some of the sprigs grow longer with the music, curl at the end or open a daisy,
-// then pull back when it is quiet.
+// Flower wallpaper that moves with the music
 
-// Colours of the wall (change these to restyle it)
+// Wall colours
 let wallStyle = {
   wall: "#EDE3CF",
-  leaves: ["#1F3047", "#4F6E8E", "#9DB0C4", "#6E7F5E"],  // navy, blue, light blue, sage
-  daisies: ["#F8F4EC", "#E58C7A"],                         // white and coral
+  leaves: ["#1F3047", "#4F6E8E", "#9DB0C4", "#6E7F5E"],  // leaf colours
+  daisies: ["#F8F4EC", "#E58C7A"],                         // daisy colours
   centre: "#A39279",
   star: "#7F95AD"
 };
 
-let wallTexture;   // wall and the sprigs that stay still, drawn once
-let sprigLayer;    // the sprigs that grow, redrawn with the music
-let wallLayer;     // daisies and stars, redrawn with the music
+let wallTexture;   // wall and still leaves
+let sprigLayer;    // growing leaves
+let wallLayer;     // daisies and stars
 let growingSprigs = [];
 let daisies = [];
 let stars = [];
@@ -35,6 +31,12 @@ function setupWall() {
   wallLayer = makeWallLayer(-1);
 }
 
+// Make a full screen layer behind the artwork
+// Outside the course: style() sets CSS on the layer. "position: fixed" and a
+// negative "z-index" put it behind the artwork, and "pointer-events: none"
+// lets mouse clicks go through it.
+// https://p5js.org/reference/p5.Element/style/
+// https://developer.mozilla.org/en-US/docs/Web/CSS/z-index
 function makeWallLayer(depth) {
   let layer = createGraphics(windowWidth, windowHeight);
   layer.show();
@@ -47,7 +49,9 @@ function makeWallLayer(depth) {
 }
 
 function updateWall() {
-  // rebuild the wall when the window (or the painting on it) changes size
+  // Rebuild the wall when the window changes size
+  // Outside the course: getBoundingClientRect() tells where the artwork is on the page
+  // https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
   let box = drawingContext.canvas.getBoundingClientRect();
   let size = windowWidth + "x" + windowHeight + "x" + round(box.left) + "x" + round(box.top);
   if (size != builtFor) {
@@ -57,10 +61,9 @@ function updateWall() {
     drawnGrowth = -1;
   }
 
-  // how open the daisies are and how far the sprigs grow
-  // (barLevels, mouthOpen and beatAmount come from music.js)
-  let openTarget = 0.15;   // daisies closed when the music is not playing
-  let growTarget = 0;      // sprigs at their normal size when the music is not playing
+  // How open the daisies are and how long the leaves grow
+  let openTarget = 0.15;   // closed when no music
+  let growTarget = 0;      // normal size when no music
   let sparkle = 0;
   if (bgMusic.isPlaying()) {
     let energy = (barLevels[0] + barLevels[1] + barLevels[2] + barLevels[3]) / 4;
@@ -69,14 +72,14 @@ function updateWall() {
     sparkle = barLevels[3];   // high notes
   }
   wallOpen = lerp(wallOpen, openTarget, 0.06);
-  // ease slowly, so the sprigs grow and pull back smoothly
+  // grow slowly
   wallGrowth = lerp(wallGrowth, growTarget, 0.03);
 
   updateSprigs();
   updateDaisies(sparkle);
 }
 
-// Redraw the growing sprigs only when they have grown, shrunk or the beat has changed
+// Draw the growing leaves
 function updateSprigs() {
   if (abs(wallGrowth - drawnGrowth) < 0.002 && abs(beatAmount - drawnSprigBeat) < 0.03) return;
   drawnGrowth = wallGrowth;
@@ -88,7 +91,7 @@ function updateSprigs() {
   }
 }
 
-// Redraw the daisies and stars only when something has changed, to keep things fast
+// Draw the daisies and stars
 function updateDaisies(sparkle) {
   if (abs(wallOpen - drawnOpen) < 0.003 && abs(beatAmount - drawnBeat) < 0.03 && abs(sparkle - drawnSparkle) < 0.03) return;
   drawnOpen = wallOpen;
@@ -97,7 +100,7 @@ function updateDaisies(sparkle) {
 
   wallLayer.clear();
   for (let s of stars) {
-    // each star twinkles a little differently
+    // each star twinkles differently
     let twinkle = constrain(sparkle * 1.4 - s.phase * 0.5, 0, 1);
     drawStar(s.x, s.y, s.size * (0.4 + twinkle * 0.8), 80 + twinkle * 175);
   }
@@ -107,7 +110,10 @@ function updateDaisies(sparkle) {
   }
 }
 
-// A random number that is the same every time, so the wall always looks the same
+// Random number that stays the same every time
+// Outside the course: this is the Lehmer (Park-Miller) random number formula.
+// I didn't use randomSeed() because it would also change random() in my group's code.
+// https://en.wikipedia.org/wiki/Lehmer_random_number_generator
 function wallRandom(low, high) {
   wallSeed = (wallSeed * 16807) % 2147483647;
   return low + (wallSeed / 2147483647) * (high - low);
@@ -119,7 +125,7 @@ function buildWall(box) {
   wallLayer.resizeCanvas(windowWidth, windowHeight);
   wallSeed = 11;
 
-  // the leafy sprigs, placed in a loose grid
+  // leaves in a grid
   let sprigs = [];
   for (let y = 40; y < windowHeight + 80; y += 150) {
     for (let x = 40; x < windowWidth + 80; x += 150) {
@@ -128,7 +134,7 @@ function buildWall(box) {
     }
   }
 
-  // daisies, placed in a loose grid
+  // daisies in a grid
   daisies = [];
   for (let y = 60; y < windowHeight + 60; y += 190) {
     for (let x = 60; x < windowWidth + 60; x += 190) {
@@ -137,15 +143,14 @@ function buildWall(box) {
     }
   }
 
-  // little stars in the gaps
+  // small stars
   stars = [];
   for (let i = 0; i < windowWidth * windowHeight / 18000; i++) {
     stars.push({ x: wallRandom(0, windowWidth), y: wallRandom(0, windowHeight), size: wallRandom(5, 9), phase: wallRandom(0, 1) });
   }
 
-  // some sprigs grow with the music, the rest stay still on the wall.
-  // sprigs hidden behind the painting always stay still.
-  let ring = 66; // the mat and the frame around the painting
+  // some leaves grow with the music, the rest stay still
+  let ring = 66; // frame size
   wallTexture.background(wallStyle.wall);
   growingSprigs = [];
   for (let s of sprigs) {
@@ -159,18 +164,18 @@ function buildWall(box) {
   }
 }
 
-// A curved stem with leaves on both sides
+// Draw a leaf stem
 function drawSprig(g, x, y, angle, length, colour) {
   g.push();
   g.translate(x, y);
   g.rotate(angle);
   drawSprigStem(g, length, colour);
-  // a leaf at the tip
+  // tip leaf
   drawVeinedLeaf(g, length, 0, 0, length * 0.14, colour);
   g.pop();
 }
 
-// The stem and side leaves of a sprig (without the tip leaf)
+// Stem and side leaves
 function drawSprigStem(g, length, colour) {
   g.noFill();
   g.stroke(colour);
@@ -188,27 +193,26 @@ function drawSprigStem(g, length, colour) {
   }
 }
 
-// Work out where a sprig will grow to: it carries on from its tip,
-// then curls into a spiral, or opens a daisy at the end
+// Work out where a stem will grow
 function makeGrowingSprig(s) {
   let length = s.length;
   let step = 4;
   let x = length;
   let y = 0;
-  let angle = atan2(-length * 0.15, length * 0.3);  // same direction as the tip
+  let angle = atan2(-length * 0.15, length * 0.3);  // same angle as the tip
   let steps = floor(length * wallRandom(0.8, 1.3) / step);
   let turn = wallRandom(0.004, 0.012) * (wallRandom(0, 1) < 0.5 ? -1 : 1);
   let curlSide = wallRandom(0, 1) < 0.5 ? -1 : 1;
   s.endsInFlower = wallRandom(0, 1) < 0.35;
-  s.delay = wallRandom(0, 0.2);   // so they don't all grow at the same time
+  s.delay = wallRandom(0, 0.2);   // random start time
 
-  // the new part of the stem
+  // new part of the stem
   s.points = [];
   for (let i = 0; i <= steps; i++) {
     let t = i / steps;
     s.points.push({ x: x, y: y, angle: angle });
     angle += turn;
-    // the end winds tighter and tighter into a spiral
+    // curl at the end
     if (!s.endsInFlower && t > 0.55) {
       angle += curlSide * map(t, 0.55, 1, 0, 0.1) * step;
     }
@@ -216,7 +220,7 @@ function makeGrowingSprig(s) {
     y += sin(angle) * step;
   }
 
-  // new leaves along the new part, spaced like the old ones
+  // new leaves
   s.newLeaves = [];
   let gap = max(4, round(length * 0.2 / step));
   let side = 1;
@@ -232,7 +236,7 @@ function makeGrowingSprig(s) {
   s.flowerAngle = wallRandom(0, TWO_PI);
 }
 
-// Draw a sprig that has grown part of the way
+// Draw a growing stem
 function drawGrowingSprig(s, growth) {
   let grown = constrain((growth - s.delay) / 0.5, 0, 1);
   let g = sprigLayer;
@@ -240,10 +244,10 @@ function drawGrowingSprig(s, growth) {
   g.translate(s.x, s.y);
   g.rotate(s.angle);
 
-  // the old part, same as the still sprigs
+  // old part
   drawSprigStem(g, s.length, s.colour);
 
-  // the new part of the stem
+  // new part
   let last = floor(grown * (s.points.length - 1));
   if (last > 0) {
     g.noFill();
@@ -256,7 +260,7 @@ function drawGrowingSprig(s, growth) {
     g.endShape();
   }
 
-  // new leaves open up once the stem has grown past them
+  // new leaves grow in
   for (let leaf of s.newLeaves) {
     let leafGrown = constrain((grown - leaf.t) * 6, 0, 1);
     if (leafGrown > 0) {
@@ -264,7 +268,7 @@ function drawGrowingSprig(s, growth) {
     }
   }
 
-  // the tip: a leaf while growing, then a curl or a daisy
+  // tip leaf, then a curl or a daisy
   let tip = s.points[last];
   let bloom = 0;
   let tipLeaf = s.length * 0.14;
@@ -272,19 +276,19 @@ function drawGrowingSprig(s, growth) {
     bloom = constrain((growth - s.delay - 0.5) * 6, 0, 1);
     tipLeaf *= 1 - bloom;
   } else {
-    tipLeaf *= 1 - constrain((grown - 0.5) * 4, 0, 1);   // the leaf fades as it starts to curl
+    tipLeaf *= 1 - constrain((grown - 0.5) * 4, 0, 1);   // leaf gets smaller when it curls
   }
   if (tipLeaf > 0.5) {
     drawVeinedLeaf(g, tip.x, tip.y, tip.angle, tipLeaf, s.colour);
   }
   if (bloom > 0.05) {
-    // the daisy bounces on the beat
+    // daisy moves with the beat
     drawDaisy(g, tip.x, tip.y, s.flowerSize * bloom * (1 + beatAmount * 0.2), bloom, s.flowerColour, s.flowerAngle);
   }
   g.pop();
 }
 
-// A pointed leaf with a pale vein down the middle
+// Draw a leaf
 function drawVeinedLeaf(g, x, y, angle, size, colour) {
   g.push();
   g.translate(x, y);
@@ -302,7 +306,7 @@ function drawVeinedLeaf(g, x, y, angle, size, colour) {
   g.pop();
 }
 
-// A daisy: open goes from a closed bud (0) to fully open (1)
+// Draw a daisy (open is 0 to 1)
 function drawDaisy(g, x, y, size, open, colour, angle) {
   g.push();
   g.translate(x, y);
@@ -316,7 +320,7 @@ function drawDaisy(g, x, y, size, open, colour, angle) {
     g.ellipse(size * 0.25 + petalLength / 2, 0, petalLength, size * 0.2);
     g.pop();
   }
-  // centre with a few seeds
+  // middle
   g.fill(wallStyle.centre);
   g.circle(0, 0, size * 0.55);
   g.fill(255, 255, 255, 120);
@@ -326,7 +330,7 @@ function drawDaisy(g, x, y, size, open, colour, angle) {
   g.pop();
 }
 
-// A small star made of crossing lines
+// Draw a small star
 function drawStar(x, y, size, alpha) {
   let c = color(wallStyle.star);
   c.setAlpha(alpha);

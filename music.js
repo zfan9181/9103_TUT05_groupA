@@ -64,6 +64,8 @@ function startMusic() {
     userStartAudio();
     bgMusic.loop();
     // jump back to the start before the fade out
+    // addCue() runs restartMusic() when the music reaches 54s
+    // https://archive.p5js.org/reference/#/p5.SoundFile/addCue
     bgMusic.addCue(loopEnd, restartMusic);
   }
 }
@@ -90,6 +92,9 @@ function updateMouth() {
   let spectrum = musicFFT.analyze();
 
   // Find the loudest note between 600 and 1400 Hz (the flute)
+  // the spectrum goes from 0 Hz to half the sample rate,
+  // so work out which part of the array is 600-1400 Hz
+  // https://p5js.org/reference/p5.FFT/getEnergy/
   let nyquist = sampleRate() / 2;
   let start = round(600 / nyquist * spectrum.length);
   let end = round(1400 / nyquist * spectrum.length);
