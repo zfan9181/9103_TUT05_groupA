@@ -16,12 +16,13 @@ class weatherManager {
 }
 
 //Rain Drop Class: This provides the variables and logic for the rain 
+//Each drop is a small tear, the same shape and colour as the tear on the face
 class rainDrop {
     constructor(){
         this.x = random(0,width);
-        this.y = 0;
-        this.scale = random(2, 5);
-        this.speed = 30
+        this.y = random(-60, 0);
+        this.scale = random(0.13, 0.24);
+        this.speed = random(7, 13);
     }
     updateRainDrop() {
           this.y += this.speed
@@ -32,9 +33,18 @@ class rainDrop {
         translate(this.x, this.y);
         const rainAngle = map(weather.windIntensity, 0.1, 1, 0, 0.5);
         rotate(-rainAngle);
-        strokeWeight(this.scale);
-        stroke(174, 219, 235);   
-        line(0, 0, 0, random(8,12));
+        scale(this.scale);
+        noStroke();
+        fill(75, 188, 204, 220);   // same blue as the tear
+        beginShape();
+        vertex(0, -42);
+        bezierVertex(8, -20, 20, 10, 20, 23);
+        bezierVertex(20, 48, -20, 48, -20, 23);
+        bezierVertex(-20, 10, -8, -20, 0, -42);
+        endShape(CLOSE);
+        // a small shine, like on the magnifying glass
+        fill(255, 255, 255, 170);
+        ellipse(-7, 20, 8, 16);
         pop();
     }
 }
@@ -110,7 +120,10 @@ function drawRain() {
 
     if (weather.rainIntensity > 0.45) {   // If statement that checks if the rain intensity is above a certain threshold. If it is, the rainDrop class will be called.
         if (currentTime - lastRainDropTime >= rainDropInterval) {   // If statement that checks if the time interval has passed since the last time a rainDrop was created.
-            rainDrops.push(new rainDrop());                         // If true, a new rainDrop Class instance is pushed into the rainDrops array.
+            const dropCount = floor(map(weather.rainIntensity, 0.45, 1, 1, 4));   // heavier rain makes more drops at once
+            for (let i = 0; i < dropCount; i++) {
+                rainDrops.push(new rainDrop());                     // If true, new rainDrop Class instances are pushed into the rainDrops array.
+            }
             lastRainDropTime = currentTime;
         }
 
