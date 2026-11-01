@@ -1,6 +1,6 @@
 # 9103_TUT05_groupA
 
-# userInput mechanic
+- User Input Mechanic:
 Zhiqi Fan 560111004
 1.dragable magnifier frame --- enlarge element
 2.eye follow the mouse
