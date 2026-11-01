@@ -2,7 +2,7 @@ let isDraggingFrame = false;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
 //enlarge strength
-let enlarge = 1.5;
+let enlarge = 1.17;
 
 //drag the frame
 function mousePressed() {
@@ -59,6 +59,8 @@ function displayMagnifier() {
     sourceSize
   );
 
+  magnifiedArea.filter(GRAY);
+  
   // handle, drawn first so the lens sits on top of it
   push();
   translate(frame.x, frame.y);
@@ -95,7 +97,7 @@ function updateEyeTraking(){
   for(let eye of eyes){
     eye.pupilX = (mouseX / width - 0.5) * 35;
 
-    eye.pupilY = (mouseY / height - 0.5) * 6;
+    eye.pupilY = (mouseY / height - 0.5) * 6.2;
   }
 }
 
