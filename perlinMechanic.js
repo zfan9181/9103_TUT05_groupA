@@ -357,8 +357,6 @@ function createBlackTriangleFragments(){
 }
 
 
-
-
 //DISPLAY ALL CLOTHING
 
 function displayClothingFragments(){
@@ -368,4 +366,57 @@ function displayClothingFragments(){
         fragment.update();
         fragment.display();
     }
+}
+
+
+
+
+
+
+
+
+//add an Earring highlight//////////////////////////////////////
+
+let earringHighlight=0;
+let earringNoise=0;
+
+
+function displayEarringHighlight(){
+    let highlightLight=120;
+    if(random(1)<0.1){
+        highlightLight=255;
+    }
+
+    //Draw the highlight
+    stroke(255, 245, 220, highlightLight);
+    strokeWeight(8);
+    line(Earring.x-12, Earring.y+80, Earring.x-24, Earring.y+110);
+}
+
+
+//Earing swing effect
+let earringSwing=0;
+let swingAmount=0.28;
+
+//Make the whole earring swing, as well as highlight
+function displayMovingEarring(){
+
+    updateEarringSwing();
+    push();
+    translate(Earring.x, Earring.y);
+    rotate(-earringSwing);
+    translate(-Earring.x, -Earring.y);
+
+    displayEarring();
+    displayEarringHighlight();
+
+    pop();
+}
+
+//Update earring swing
+function updateEarringSwing(){
+
+    //Create smooth movement, Control tge movement mostly to the right with the wind direction
+    earringSwing=map(noise(frameCount*0.03), 0, 1, swingAmount*0.4, swingAmount 
+    );
 }

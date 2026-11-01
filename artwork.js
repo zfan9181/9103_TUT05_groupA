@@ -441,8 +441,10 @@ function displayArtwork(){
     for(let drop of fallingTears){
       displayTear(drop);
     }
+    
+   displayMovingEarring(); 
 
-    displayEarring();
+
     eye1.display();
     eye2.display();
     eye3.display();
