@@ -106,7 +106,7 @@ function mouseClicked(){
   if(isCrying){
     isCrying = false;
   }
-  else if(abs(mouseX-tear.x)<25 && abs(mouseY-tear.y),45){
+  else if(abs(mouseX-tear.x)<25 && abs(mouseY-tear.y)<45){
     isCrying = true;
   }
 }
