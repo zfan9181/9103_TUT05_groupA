@@ -110,6 +110,8 @@ function mouseClicked(){
   }
   else if(abs(mouseX-tear.x)<25 && abs(mouseY-tear.y)<45){
     isCrying = true;
+    fallingTears.push({x:tear.x,y:tear.y,scale:tear.scale,rotation:tear.rotation,color:tear.color});
+  }
   }
 }
 function updateTear(){
