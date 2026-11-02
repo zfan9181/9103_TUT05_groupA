@@ -452,10 +452,11 @@ function displayArtwork(){
     eye4.display();
     rect2.display();
     // the white bars are drawn in sketch.js, on top of the clothing pieces
-    weatherAtmosUpdate();
+    displayClothes();
     drawRain();
     drawWind();
-    displayClothes();
+   
+    
     
     // frame.display();
 }

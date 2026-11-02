@@ -19,7 +19,7 @@ class weatherManager {
 //Each drop is a small tear, the same shape and colour as the tear on the face
 class rainDrop {
     constructor(){
-        this.x = random(0,width);
+        this.x = random(0,width); 
         this.y = random(-60, 0);
         this.scale = random(0.13, 0.24);
         this.speed = random(7, 13);
@@ -77,8 +77,6 @@ let rainDrops = []               //Initialize an array to record the individual 
 let windStreams = []             //Initialize an array to record the individual instances of the windStream class
 let lastRainDropTime = 0;        //Provides a variable to keep track of the last time the rain class was called. 
 let lastWindStreamTime = 0;      //Provides a variable to keep track of the last time the wind class was called.
-let weatherAtmosColour;
-let weatherAtmosIntensity;
 let lastDisplacementChange = 0;
 let hairDisplacementTarget1 = 0; 
 let hairDisplacementTarget2 = 0;
@@ -118,8 +116,8 @@ function drawRain() {
     const currentTime = millis();
     const rainDropInterval = map(weather.rainIntensity, 0.1, 1, 500, 10);
 
-    if (weather.rainIntensity > 0.45) {   // If statement that checks if the rain intensity is above a certain threshold. If it is, the rainDrop class will be called.
-        if (currentTime - lastRainDropTime >= rainDropInterval) {   // If statement that checks if the time interval has passed since the last time a rainDrop was created.
+    if (weather.rainIntensity > 0.45) {                                           // If statement that checks if the rain intensity is above a certain threshold. If it is, the rainDrop class will be called.
+        if (currentTime - lastRainDropTime >= rainDropInterval) {                 // If statement that checks if the time interval has passed since the last time a rainDrop was created.
             const dropCount = floor(map(weather.rainIntensity, 0.45, 1, 1, 4));   // heavier rain makes more drops at once
             for (let i = 0; i < dropCount; i++) {
                 rainDrops.push(new rainDrop());                     // If true, new rainDrop Class instances are pushed into the rainDrops array.
@@ -164,6 +162,7 @@ function drawWind() {
 }
 
 function weatherAtmosUpdate(){   
+ 
     push();
     const intensity = weather.windIntensity + weather.rainIntensity;
     const opacity = map(intensity, 0.2, 2, 0 ,100);
@@ -172,7 +171,8 @@ function weatherAtmosUpdate(){
     fill(colour, colour, colour, opacity);
     rect(0, 0, width, height);
     pop();
-
+        
+    
 }
 
 function updateHairDisplacement() {

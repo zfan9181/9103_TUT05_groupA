@@ -5,7 +5,7 @@
 | --- | --- | --- |
 |  |  |  |
 |  |  |  |
-|  |  |  |
+|Tom Loftus-Hills | 550835480 | Time-based |
 |  |  |  |
 
 ## How to Run
@@ -69,14 +69,40 @@ Press ↑ / ↓ to change the volume.
 
 **Files:**
 
-### Weather Mechanic
-**Name / Student ID:**
+###### Weather Mechanic ######
+**Tom Loftus-Hills / 550835480:**
 
-**What it does:**
+**The weather mechanic as a whole provides random weather event timer logic that drives its own associated visual effects as well as provides the other mechanics a way of influencing their behaviour based on the weather state with simple weather intensity values.:**
 
-**How it works:**
+### CLASSES: ###
+# - weatherManager():
+**Stores essential logic for weather intensity variables to be called from outside functions. Includes easing of the weather intensities so changes made via its associated update function don't happen suddenly**. 
+
+# - rainDrop():
+**Defines a repeatable rain drop shape which has range controlled random properties related to its scale, speed, and x and y starting positions. Included within the class are nested update functions to be called by the associated draw function. `updateRainDrop()` controls the animation of the rain drop falling and is dependant on weather intensity values. `displayRainDrop()` defines the physical shape of the rain drop. It also allows the rotation of the shape to be controlled by the wind intensity value to convey the sidwards momentum**.
+
+# - windStream()
+**Follows identical logic of the rainDrop class but defines its variables such that the shape moves sidewards instead of downwards. `updateWindStream()` & `displayWindStream` nested in this class also follow the same logic of rainDrop class' nested functions**.
+
+### FUNCTIONS: ###
+# - updateWeather()
+**This function is called within draw() of artwork.js and provides the weatherManager class a way of updating its values to change weather states (values). This function essentially checks whether or not the predefined wind and rain state durations (in milliseconds) have passed, and if so, redefines such durations with different random values. It also provides a console log message for the sake of debugging other visual effects dependant on the weather states.** 
+
+# - drawRain()
+**This function is the method used for displaying the rainDrop class shapes. The key logic of this function is that the rainIntensity value is mapped (via an inverse relationship) to a rainDropInterval time (in milliseconds). Everytime that amount of time has passed, this function will push a new rain drop into the rainDrops[] array. Additionally, the dropCount variable (mapped to rainIntensity) allows more than one rain drop to be made over the same interval (this was a last minute revision to make the visual effect more appropriate). This function then uses a for loop to call the updateRainDrop() function for rainDrops[i]. Additionally, if any of the rain drops move below the height of the canvas, that particular drop is spliced from the array.** 
+
+# - drawWind()
+**This function follow an identical procedure to the drawRain() function but discludes a way of generating more than one wind stream per time interval**.
+
+# - weatherAtmosUpdate()
+**This function creates a simple visual effect aiming to dull the colours of the main artwork visuals in a way that reacts to the weather states. It follows a simple procedure of mapping the combined values of the weather intensity values to an associated opacity of a grey rectangle that covers the main artwork canvas**.
+
+# - updateHairDisplacement()
+**This function creates 3 hair displacement values that are referenced in the x value input arguments each of the 3 hair shapes. This is intended to create the effect of hair moving in the wind. This function works by creating 3 range controlled displacement targets every time an interval of time (determined by wind intensity) passes. These values are also scaled based on the wind intensity. It then uses easing to create 3 moving hair displacement values which are then added to the x input argument for each of the 3 hair shapes.**
 
 **Files:**
+`weatherMechanic.js` + changes to `artwork.js`
+
 
 ## File Structure
 
