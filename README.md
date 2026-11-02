@@ -61,13 +61,23 @@ Press ↑ / ↓ to change the volume.
 `music.js`, `wall.js` (and small changes in `sketch.js`, `artwork.js`, `style.css` and `index.html`)
 
 ### Perlin Noise and Randomness Mechanic
-**Name / Student ID:**
+Name: Yuwei Wu          Student ID: 560362798
 
 **What it does:**
+1. Background --- Perlin noise creates moving cloud-like color areas. The background color changes from pink to blue with the weather intensity.
+2. Clothing --- the clothing is divided into small rectangle or triangle pieces. Create shaking effects by moving these pieces slightly, and randomly change their colors among the main color, lighter color, and some other colors from the artwork palette. Stronger music makes the effect more active.
+3. Hair ---  Add three rings being made by small circle pieces wthin the black hair. They move slightly and randomly flicker between black and white like clothing effects.
+4. Earring --- the earring has a flickering highlight, and Perlin noise makes the earring swing smoothly.
 
 **How it works:**
+- Background: each background segment gets a `noise()` value based on its position. Nearby segments get similar values, so the colors connect together and create cloud-like areas. Changing the noise position over time makes the cloud-like areas move continuously.
+- Background color: Combine the wind and rain intensity into one weather intensity value. Use `lerpColor()` to change the background from pink to blue. Control how fast the cloud-like color areas move throught wind intensity `map()`.
+- Clothing: each piece saves its original position. Two `noise()` values control the x and y movement, so the pieces move slightly around their original positions.
+- Clothing color:` random()` decides when a piece changes color. Most pieces change to their lighter color, while some pieces randomly change to other colors from the artwork palette.
+- Hair: Add small circle pieces inside each black hair circle. Set three different radius ratios for the three rings. `hair.size` and radiusRatio are used to calculate the actual radius of each ring. Then the small circle pieces are placed around these three rings. `noise()` makes them move slightly, and `random()` controls the black and white flicker effect.
 
 **Files:**
+Perlin&RandomnessMechanic.js
 
 ### Weather Mechanic
 **Name / Student ID:**
