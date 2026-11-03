@@ -18,11 +18,26 @@
 
 ## Individual Mechanics
 
-- User Input Mechanic:
-Zhiqi Fan 560111004
-1.dragable magnifier frame --- enlarge element
-2.eye follow the mouse
-3.tears drop and stop by mouse clicking
+### Artwork Recreation and User Input Mechanic
+Name: Zhiqi Fan  Student ID: 560111004
+
+What it does:
+
+1. Artwork recreation --- recreated the original portrait in p5.js with simple shapes, including the face, hair, eyes, nose, mouth, blush, tear, earring, clothing and background blocks. This file is the shared base that the other mechanics build on.
+2. Magnifier --- drag the magnifier around the portrait to enlarge the area under it. The enlarged area turns grey, so the viewer's attention is pulled to that part while the rest of the artwork stays in colour.
+3. Eye tracking --- all four eyes follow the mouse. The movement is kept small on purpose, so it looks like how real eyes move.
+4. Tears --- click the tear on the face to start crying, and tears keep dropping from the cheek. Click again to stop.
+
+How it works:
+
+1. Artwork: each element is stored as an object or a class (`Eye`, `Hair`, `Shape`) with its own position, rotation and scale, then drawn with `translate()`, `rotate()` and `scale()`. Curved shapes such as the nose and the tear are drawn with `bezierVertex()`. Because every element keeps its values as variables, the other mechanics can animate them without redrawing the artwork.
+2. Dragging: `mousePressed()` checks whether the mouse is inside the frame area and saves the offset between the mouse and the frame centre. `mouseDragged()` moves the frame with that offset, and `constrain()` keeps it inside the canvas. `mouseReleased()` stops the dragging.
+* Enlarging: `get()` copies a smaller area of the canvas around the frame centre (lens size divided by `enlarge`), then `image()` draws it back at full lens size, so the content looks enlarged.
+3. Grey filter: `filter(GRAY)` is applied only to the copied area before it is drawn, so only the part inside the magnifier turns grey.
+* Eye tracking: the mouse position is mapped to a small offset for the iris and pupil: `(mouseX / width - 0.5) * 35` sideways and `(mouseY / height - 0.5) * 6.2` up and down. The eyelid is drawn on top, so the iris always stays inside the eye.
+4. Tears: `mouseClicked()` checks whether the click is near the tear and switches `isCrying` on or off. The first drop falls right away, then a new drop is added every 55 frames. Each drop moves down 2 pixels per frame and is removed once it leaves the face area.
+
+Files: artwork.js, userInput.js
 
 ### Audio Mechanic
 **Name / Student ID:**
