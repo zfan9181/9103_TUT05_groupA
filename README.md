@@ -8,13 +8,27 @@
 |Tom Loftus-Hills | 550835480 | Time-based |
 |  |  |  |
 
-## How to Run
-
 ## How to Interact
+
+**Things you can do:**
+
+- **Click the artwork** to start the music. Press the ↑ / ↓ arrow keys to change the volume.
+- **Drag the magnifier** (the round glass on the face) to look closer at any part of the portrait. The area inside the glass turns grey.
+- **Move the mouse** and all four eyes follow it.
+- **Click the tear** on the cheek to make her cry. Click anywhere again to stop.
+
+**Things to watch:**
+
+- **Music:** the mouth sings, the blush turns deep pink on the beat, the white bars move, the hair grows and shrinks, and the flower wallpaper grows with the music.
+- **Background:** the cloud-like colours keep moving. Stronger wind makes them move faster, and stronger weather turns the background from pink to blue.
+- **Clothing and hair pieces:** the small pieces on the clothing and the small circles in the hair shake and flicker between colours. Stronger music makes them more active.
+- **Earring:** the earring swings gently and its highlight flickers.
+- **Weather:** the weather changes by itself every 5 to 30 seconds. Rain, wind and the grey overlay come and go, and the hair moves in the wind.
 
 ## Inspiration
 
 ## Group Concept
+Our idea is to bring a still painting to life. We show the woman as a framed painting on a wall, like in a gallery, and she reacts to the viewer, the music and the weather. Perlin noise keeps her moving softly, so she always feels alive. Our mechanics also share values with each other, so the whole artwork reacts as one piece.
 
 ## Individual Mechanics
 
@@ -40,7 +54,7 @@ How it works:
 Files: artwork.js, userInput.js
 
 ### Audio Mechanic
-**Name / Student ID:**
+Name：xiaoru（Renee）luan / Student ID: 560435807
 
 **What it does:**
 Click the artwork to start the music. 
@@ -63,14 +77,6 @@ Press ↑ / ↓ to change the volume.
 - White bars: each bar uses `getEnergy()` of one frequency band to set its height, growing from the bottom.
 - Wallpaper: drawn on `createGraphics()` layers behind the artwork. How far the sprigs grow depends on the bar energy and the mouth. It only redraws when something changes, to keep the sketch fast.
 - `lerp()` is used everywhere so all the changes are smooth.
-
-**Techniques from outside the course:**
-- `style()` with CSS (`position: fixed`, `z-index`, `pointer-events`) puts the wallpaper layers behind the artwork. [p5 style()](https://p5js.org/reference/p5.Element/style/), [MDN z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index)
-- `getBoundingClientRect()` finds where the artwork is on the page, so the wallpaper can be rebuilt when the window changes. [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect)
-- `wallRandom()` uses the Lehmer (Park-Miller) random formula, so the wallpaper looks the same every time. I didn't use `randomSeed()` because it would also change `random()` in my group's code. [Wikipedia](https://en.wikipedia.org/wiki/Lehmer_random_number_generator)
-- `sampleRate()` is used to work out which part of the FFT spectrum is 600–1400 Hz (the flute). [p5 getEnergy()](https://p5js.org/reference/p5.FFT/getEnergy/)
-- `addCue()` jumps the music back to the start at 54s. [p5 addCue()](https://archive.p5js.org/reference/#/p5.SoundFile/addCue)
-- CSS variables, `min()` and `box-shadow` make the gold frame and mat around the artwork. [MDN box-shadow](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow), [MDN min()](https://developer.mozilla.org/en-US/docs/Web/CSS/min)
 
 **Files:**
 `music.js`, `wall.js` (and small changes in `sketch.js`, `artwork.js`, `style.css` and `index.html`)
@@ -129,8 +135,6 @@ Perlin&RandomnessMechanic.js
 `weatherMechanic.js` + changes to `artwork.js`
 
 
-## File Structure
-
 ## References
 1. Minimalistic Women Figurative Art - abstract, minimalist painting
 online. (2026). Fizdi.com. https://www.fizdi.com/minimalistic-women-figurative-art-
@@ -143,6 +147,14 @@ and Processing. Gorilla Sun. https://www.gorillasun.de/blog/an-introduction-to-
 perlin-noise-in-p5js-and-processing/
  
 3. bobbyraysimmons-141059862. (n.d.). Beat driven music [Song]. SoundCloud. https://soundcloud.com/bobbyraysimmons-141059862/beat-driven-music
+
+## Techniques from outside the course:
+- `style()` with CSS (`position: fixed`, `z-index`, `pointer-events`) puts the wallpaper layers behind the artwork. [p5 style()](https://p5js.org/reference/p5.Element/style/), [MDN z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index)
+- `getBoundingClientRect()` finds where the artwork is on the page, so the wallpaper can be rebuilt when the window changes. [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect)
+- `wallRandom()` uses the Lehmer (Park-Miller) random formula, so the wallpaper looks the same every time. I didn't use `randomSeed()` because it would also change `random()` in my group's code. [Wikipedia](https://en.wikipedia.org/wiki/Lehmer_random_number_generator)
+- `sampleRate()` is used to work out which part of the FFT spectrum is 600–1400 Hz (the flute). [p5 getEnergy()](https://p5js.org/reference/p5.FFT/getEnergy/)
+- `addCue()` jumps the music back to the start at 54s. [p5 addCue()](https://archive.p5js.org/reference/#/p5.SoundFile/addCue)
+- CSS variables, `min()` and `box-shadow` make the gold frame and mat around the artwork. [MDN box-shadow](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow), [MDN min()](https://developer.mozilla.org/en-US/docs/Web/CSS/min)
 
 ## AI Acknowledgement
 AI (ChatGPT) was used to help TEST and debug some of this code.
