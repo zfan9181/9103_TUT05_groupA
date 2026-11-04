@@ -3,10 +3,10 @@
 
 | Name | Student ID | Mechanic |
 | --- | --- | --- |
-|  |  |  |
-|  |  |  |
-|Tom Loftus-Hills | 550835480 | Time-based |
-|  |  |  |
+| Zhiqi Fan | 560111004 | Artwork Recreation and User Input |
+| Xiaoru (Renee) Luan | 560435807 | Audio |
+| Yuwei Wu | 560362798 | Perlin Noise and Randomness |
+| Tom Loftus-Hills | 550835480 | Time-based (Weather) |
 
 ## How to Interact
 
@@ -54,7 +54,7 @@ How it works:
 Files: artwork.js, userInput.js
 
 ### Audio Mechanic
-Name：xiaoru（Renee）luan / Student ID: 560435807
+Name：xiaoru（Renee）luan   Student ID: 560435807
 
 **What it does:**
 Click the artwork to start the music. 
@@ -100,7 +100,7 @@ Name: Yuwei Wu          Student ID: 560362798
 **Files:**
 Perlin&RandomnessMechanic.js
 
-###### Weather Mechanic ######
+### Weather Mechanic 
 **Tom Loftus-Hills / 550835480:**
 
 **The weather mechanic as a whole provides random weather event timer logic that drives its own associated visual effects as well as provides the other mechanics a way of influencing their behaviour based on the weather state with simple weather intensity values.:**
@@ -148,13 +148,16 @@ perlin-noise-in-p5js-and-processing/
  
 3. bobbyraysimmons-141059862. (n.d.). Beat driven music [Song]. SoundCloud. https://soundcloud.com/bobbyraysimmons-141059862/beat-driven-music
 
-## Techniques from outside the course:
+## Techniques from outside the course
 - `style()` with CSS (`position: fixed`, `z-index`, `pointer-events`) puts the wallpaper layers behind the artwork. [p5 style()](https://p5js.org/reference/p5.Element/style/), [MDN z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index)
 - `getBoundingClientRect()` finds where the artwork is on the page, so the wallpaper can be rebuilt when the window changes. [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect)
-- `wallRandom()` uses the Lehmer (Park-Miller) random formula, so the wallpaper looks the same every time. I didn't use `randomSeed()` because it would also change `random()` in my group's code. [Wikipedia](https://en.wikipedia.org/wiki/Lehmer_random_number_generator)
+- `wallRandom()` uses the Lehmer (Park-Miller) random formula, so the wallpaper looks the same every time. `randomSeed()` was not used because it would also change `random()` in the rest of the code. [Wikipedia](https://en.wikipedia.org/wiki/Lehmer_random_number_generator)
 - `sampleRate()` is used to work out which part of the FFT spectrum is 600–1400 Hz (the flute). [p5 getEnergy()](https://p5js.org/reference/p5.FFT/getEnergy/)
 - `addCue()` jumps the music back to the start at 54s. [p5 addCue()](https://archive.p5js.org/reference/#/p5.SoundFile/addCue)
+- The round magnifier uses `drawingContext` and canvas `clip()` to show the picture only inside a circle. [p5 drawingContext](https://p5js.org/reference/p5/drawingContext/), [MDN clip()](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clip)
 - CSS variables, `min()` and `box-shadow` make the gold frame and mat around the artwork. [MDN box-shadow](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow), [MDN min()](https://developer.mozilla.org/en-US/docs/Web/CSS/min)
 
 ## AI Acknowledgement
-AI (ChatGPT) was used to help TEST and debug some of this code.
+AI (ChatGPT) was used to help TEST and debug some of this code. and assist with grammar refinement and clarity of expression.
+
+
