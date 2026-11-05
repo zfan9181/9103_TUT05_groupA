@@ -159,5 +159,6 @@ perlin-noise-in-p5js-and-processing/
 
 ## AI Acknowledgement
 AI (ChatGPT) was used to help TEST and debug some of this code. and assist with grammar refinement and clarity of expression.
+- Zhiqi Fan: I used ChatGPT to learn and understand p5.js coding concepts, but all the interaction design decisions and final implementation were guided by my own ideas and understanding.
 
 
