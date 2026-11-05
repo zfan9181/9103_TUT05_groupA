@@ -87,15 +87,25 @@ Name: Yuwei Wu          Student ID: 560362798
 **What it does:**
 1. Background --- Perlin noise creates moving cloud-like color areas. The background color changes from pink to blue with the weather intensity.
 2. Clothing --- the clothing is divided into small rectangle or triangle pieces. Create shaking effects by moving these pieces slightly, and randomly change their colors among the main color, lighter color, and some other colors from the artwork palette. Stronger music makes the effect more active.
-3. Hair ---  Add three rings being made by small circle pieces wthin the black hair. They move slightly and randomly flicker between black and white like clothing effects.
+3. Hair ---  Add three rings being inside the black hair made by small circle pieces. They move slightly and randomly flicker between black and white like clothing effects.
 4. Earring --- the earring has a flickering highlight, and Perlin noise makes the earring swing smoothly.
 
 **How it works:**
-- Background: each background segment gets a `noise()` value based on its position. Nearby segments get similar values, so the colors connect together and create cloud-like areas. Changing the noise position over time makes the cloud-like areas move continuously.
-- Background color: Combine the wind and rain intensity into one weather intensity value. Use `lerpColor()` to change the background from pink to blue. Control how fast the cloud-like color areas move throught wind intensity `map()`.
-- Clothing: each piece saves its original position. Two `noise()` values control the x and y movement, so the pieces move slightly around their original positions.
-- Clothing color:` random()` decides when a piece changes color. Most pieces change to their lighter color, while some pieces randomly change to other colors from the artwork palette.
-- Hair: Add small circle pieces inside each black hair circle. Set three different radius ratios for the three rings. `hair.size` and radiusRatio are used to calculate the actual radius of each ring. Then the small circle pieces are placed around these three rings. `noise()` makes them move slightly, and `random()` controls the black and white flicker effect.
+- Background: I use a `BackgroundSegment` class and two `for` loops to divide the background into many small segments. I store all the segments in the `backgroundSegments[]` array. Each segment gets a `noise()` value based on its x and y position. Nearby segments get similar values, so the colors connect together and create cloud-like areas.
+
+- Background movement: I use backgroundFlow to change the x position used in `noise()` every frame. This makes the noise pattern move continuously across the background. `map()` uses `weather.windIntensity` to control how fast `backgroundFlow` changes.
+
+- Background color: Combine the `weather.windIntensity` and `weather.rainIntensity` into one `weatherIntensity` value. Use `lerpColor()` to blend the background from pink to blue. Higher `noise()` values also mix more white into the background to create the cloud areas. Another `map()` uses the y position to make the clouds stronger at the top and gradually fade toward the bottom.
+
+- Clothing frageents: I use a `ClothingFragment` class to create the small clothing pieces and store them in the `clothingFragments[]` array. Two `for` loops create the rectangle pieces by rows and columns. For the triangle areas, I calculate the left and right boundary of each row, then create small triangle pieces between them.
+
+- Clothing fragments movement: Each fragment saves its original position with `originalX` and `originalY`, and gets their different random starting values for `noiseX` and `noiseY`. Use `noise()` to creates small x and y movement around the original position. Use `map()` to change `audioEnergy` into the movement range and `noiseSpeed`, so that stronger music could make the pieces move more actively.
+
+- Clothing color:`random()` decides when a fragment changes color and which color it changes to. Most fragments change to their `lightColor`, while a few change to other colors from the artwork palette. Another `random()` chance lets the pieces return to their `mainColor`, so the color changes stay temporary.
+
+- Hair: I use a `HairFragment` class and store the small circle pieces in the `hairFragments[]` array, then set three different radius ratios in `ringRadius[]`. The hair size and `radiusRatio` calculate the actual radius of each ring. Use `for` loop to change `angle` from `0` to `TWO_PI`. `cos()` and `sin()` calculate the x and y positions of the small circles, so they form three rings inside each black hair circle. The movenment and color change effect are created by the same way with clothing's.
+
+- Earring:  `random()` controls when the highlight becomes brighter. I use `line()` with `strokeWeight()` to draw the highlight. For the swing effect, `frameCount` continuously changes the input of `noise()`, and `map()` changes the noise value into `earringSwing`. `translate()` moves the rotation point to the earring position, and `rotate()` creates the swing. I use `push()` and `pop()` so the rotation only affects the earring and its highlight.
 
 **Files:**
 Perlin&RandomnessMechanic.js

@@ -52,13 +52,13 @@ display(){
 
     //Higher noise values create the white cloud areas
     if (noiseValue > 0.4) {
-        let colorAmount = map(noiseValue, 0.4, 0.6, 0, 1);
-        colorAmount = colorAmount*cloudFade;
-        if(colorAmount > 1){
-            colorAmount = 1;
+        let cloudColorAmount = map(noiseValue, 0.4, 0.6, 0, 1);
+        cloudColorAmount = cloudColorAmount*cloudFade;
+        if(cloudColorAmount > 1){
+            cloudColorAmount = 1;
         }
 
-        segmentColor = lerpColor(backgroundColor, cloudColor, colorAmount);
+        segmentColor = lerpColor(backgroundColor, cloudColor, cloudColorAmount);
     }
 
     //Draw this segmetn
@@ -69,7 +69,7 @@ display(){
   }
 }
 
-//Divides the canvas into a grid
+//Create many small background pieces
 function createBackgroundSegments(){
     let segmentWidth = width / numSegments;
     let segmentHeight = height / numSegments;
@@ -219,7 +219,7 @@ class ClothingFragment{
         }
 
 
-        //Control most pieces to return to the main colour
+        //Randomly return pieces to their main color
         let returnChance=map(audioEnergy, 0, 1, 0.02, 0.06);
 
 
@@ -376,11 +376,6 @@ function displayClothingFragments(){
 //add an Earring effect//////////////////////////////////////
 
 //add an Earring highlight
-
-let earringHighlight=0;
-let earringNoise=0;
-
-
 function displayEarringHighlight(){
     let highlightLight=120;
     if(random(1)<0.1){
@@ -417,8 +412,7 @@ function displayMovingEarring(){
 function updateEarringSwing(){
 
     //Create smooth movement, Control tge movement mostly to the right with the wind direction
-    earringSwing=map(noise(frameCount*0.03), 0, 1, swingAmount*0.4, swingAmount 
-    );
+    earringSwing=map(noise(frameCount*0.03), 0, 1, swingAmount*0.4, swingAmount);
 }
 
 
