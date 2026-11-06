@@ -26,6 +26,7 @@
 - **Weather:** the weather changes by itself every 5 to 30 seconds. Rain, wind and the grey overlay come and go, and the hair moves in the wind.
 
 ## Inspiration
+Our project is based on the canvas print *Minimalistic Women Figurative Art* from Fizdi [1]. The painting is made of simple flat shapes and bold colours, so each part could be recreated in p5.js and animated on its own. For the Perlin noise background, we learned from Gorilla Sun's introduction to Perlin noise [2].
 
 ## Group Concept
 Our idea is to bring a still painting to life. We show the woman as a framed painting on a wall, like in a gallery, and she reacts to the viewer, the music and the weather. Perlin noise keeps her moving softly, so she always feels alive. Our mechanics also share values with each other, so the whole artwork reacts as one piece.
