@@ -54,8 +54,9 @@ class windStream {
     constructor(){
         this.x = 0;                                                       //All wind streams start at the left side of the canvas and move to the right so the initial x postion is always 0.
         this.y = random(0, height);                                       //The y position of the wind stream is randomized across the height of the canvas to provide variation in the visual effect.
-        this.scale = random (1, 2);                                       //See above.
-        this.speed = 10                                                   //Wind streams are given a constant speed value, however this value is scaled in the nest update function.
+        this.scale = random (3, 4);                                       //See above.
+        this.speed = 10   
+        this.length = random(30, 75);                                     //Wind streams lengths a randomly determined.
     }
     //This is a nested update function for the wind stream class to be called in the drawWind() function.
     updateWindStream() {
@@ -67,7 +68,7 @@ class windStream {
         translate(this.x, this.y);                                        //The position of the wind stream is translated to the x and y position of the wind stream instance.
         strokeWeight(this.scale);                                         //The stroke weight of the wind stream is scaled based on the randomized scale value of the wind stream instance.
         stroke(200 , 200, 200);                                           //The stroke colour of the wind stream is set to a light grey
-        line(0, 0, random(30,75), 0);                                     //The line function is used to draw a simple windstream. The length of the wind stream is also randomized.
+        line(0, 0, this.length, 0);                                     //The line function is used to draw a simple windstream. 
         pop();
     }
 }
